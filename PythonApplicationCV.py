@@ -1,4 +1,6 @@
 import cv2
+from MajorityDecides import *
+import numpy as np
 import numpy as np
 from matplotlib import pyplot as plt
 
@@ -42,3 +44,5 @@ for meth in methods:
     plt.suptitle(meth)
 
     plt.show()
+majorityDecides = MajorityDecides()
+majorityDecides.bestChoice(bottom_right)
