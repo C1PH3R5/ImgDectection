@@ -21,10 +21,6 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="MajorityDecides.py" />
-    <Compile Include="PreLoadTemplates.py">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="PythonApplicationCV.py" />
   </ItemGroup>
   <ItemGroup>
