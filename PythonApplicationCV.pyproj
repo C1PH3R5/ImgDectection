@@ -4,7 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>7508b880-c332-4d5b-b9b7-7d973ae1131a</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>PythonApplicationCV.py</StartupFile>
+    <StartupFile>Main.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -21,10 +21,25 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="PythonApplicationCV.py" />
+    <Compile Include="Main.py" />
+    <Compile Include="ObjectDectection.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ScreenCapture.py" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="data\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="data\fishing-2.jpg" />
+    <Content Include="data\fishing-3.jpg" />
+    <Content Include="data\fishing-fish-bites-template.jpg" />
+    <Content Include="data\fishing-fish-bites.jpg" />
+    <Content Include="data\fishing-template.jpg" />
+    <Content Include="data\fishing.jpg" />
+    <Content Include="data\messi5.jpg" />
+    <Content Include="data\messi_face.jpg" />
+    <Content Include="data\Test2.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in
