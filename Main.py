@@ -7,7 +7,7 @@ import cv2 as cv
 def main(self):
     print('start->')
     ##ScreenCapture.ScreenCapture().screenshotWholeScreen()
-    ObjectDectection.OpjectDectection.FindObejct()
+    ObjectDectection.OpjectDectection.FindObejct(self=None)
 
     pass
 
