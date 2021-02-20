@@ -1,4 +1,5 @@
 from tkinter import *
+from PIL import ImageTk, Image
 import ObjectDectection
 
 # Here, we are creating our class, Window, and inheriting from the Frame
@@ -15,7 +16,6 @@ class Window(Frame):
 
         # with that, we want to then run init_window, which doesn't yet exist
         self.init_window()
-        slideSec = None
 
     # Creation of init_window
     def init_window(self):
@@ -26,20 +26,14 @@ class Window(Frame):
         self.pack(fill=BOTH, expand=1)
 
         # creating a button instance
-        startButton = Button(self, text="Start", command=self.startObjectDectection)
+        startButton = Button(self, text="ScreenCapture", command=self.startObjectDectection)
         testButton = Button(self, text="Test", command=self.testObjectDectection)
         quitButton = Button(self, text="Exit", command=self.client_exit)
 
         # placing the button on my window
         startButton.place(x=0, y=0)
-        testButton.place(x=50, y=0)
-        quitButton.place(x=100, y=0)
-        lable = Label(self.master, text="Show preview for selecter sec")
-        lable.pack()
-
-        self.slideSec = Scale(self.master, from_=0, to=60, orient=HORIZONTAL)
-        self.slideSec.set(10)
-        self.slideSec.pack()
+        testButton.place(x=100, y=0)
+        quitButton.place(x=145, y=0)
 
     def client_exit(self):
         exit()
@@ -47,18 +41,18 @@ class Window(Frame):
     def startObjectDectection(self):
         print("startObjectDectection enter")
         od = ObjectDectection.OpjectDectection()
-        od.runWhitScreenCapture(self.slideSec.get())
+        od.runWhitScreenCapture(self.master)
 
     def testObjectDectection(self):
         print("testObjectDectection enter")
         od = ObjectDectection.OpjectDectection()
-        od.runWhitTestScreens(self.slideSec.get())
+        od.runWhitTestScreens(self.master)
 
 # root window created. Here, that would be the only window, but
 # you can later have windows within windows.
 root = Tk()
 
-root.geometry("200x150")
+root.geometry("640x540")
 
 # creation of an instance
 app = Window(root)

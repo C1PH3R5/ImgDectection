@@ -7,7 +7,6 @@ import PreView
 
 import numpy as np
 
-
 class OpjectDectection(object):
     def __init__(self):
         self.preLoadTemplates = PreLoadTemplates.PreLoadTemplates()
@@ -16,20 +15,20 @@ class OpjectDectection(object):
         self.methods = ['cv2.TM_CCOEFF_NORMED', 'cv2.TM_CCORR_NORMED', 'cv2.TM_SQDIFF_NORMED']
         pass
 
-    def runWhitScreenCapture(self, sec):
+    def runWhitScreenCapture(self, window):
         print("runWhitScreenCapture enter")
         img = ScreenCapture.ScreenCapture().screenshotWholeScreen()
         img_rgb = np.array(img)
         img = cv2.cvtColor(img_rgb, cv2.COLOR_BGR2GRAY)
-        img = self.FindObejct(img, sec)
+        img = self.FindObejct(img, window)
 
-    def runWhitTestScreens(self, sec):
+    def runWhitTestScreens(self, window):
         for file in glob.glob("./data/NewBobbels/*.jpg"):
             print(file)
             img = cv2.imread(file, 0)
-            img = self.FindObejct(img, sec)
+            img = self.FindObejct(img, window)
 
-    def FindObejct(self, img, sec):
+    def FindObejct(self, img, window):
 
         top_left_array = []
         for template in self.templates:
@@ -54,7 +53,7 @@ class OpjectDectection(object):
         cv2.rectangle(img, top_left, bottom_right, 255, 2)
 
         pv = PreView.PreView()
-        pv.showPreView(img, sec)
+        pv.showPreView(img, window)
 
         return img
 
