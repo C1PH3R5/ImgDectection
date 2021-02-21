@@ -20,19 +20,32 @@ class OpjectDectection(object):
         img = ScreenCapture.ScreenCapture().screenshotWholeScreen()
         img_rgb = np.array(img)
         img = cv2.cvtColor(img_rgb, cv2.COLOR_BGR2GRAY)
-        img = self.FindObejct(img, window)
+        img = self.testFindObejct(img, window)
 
     def runWhitTestScreens(self, window):
         for file in glob.glob("./data/NewBobbels/*.jpg"):
             print(file)
             img = cv2.imread(file, 0)
-            img = self.FindObejct(img, window)
+            img = self.testFindObejct(img, window)
 
-    def FindObejct(self, img, window):
+    def testFindObejct(self, img, window):
+        top_left = self.FindObejct(img)
+#        w, h = template.shape[::-1]
+        w = 100
+        h = 100
+
+        bottom_right = (top_left[0] + w, top_left[1] + h)
+        cv2.rectangle(img, top_left, bottom_right, 255, 2)
+
+        pv = PreView.PreView()
+        pv.showPreView(img, window)
+
+        return img
+
+    def FindObejct(self, img):
 
         top_left_array = []
         for template in self.templates:
-            w, h = template.shape[::-1]
             for meth in self.methods:
                 method = eval(meth)
 
@@ -49,12 +62,6 @@ class OpjectDectection(object):
 
         majorityDecides = MajorityDecides.MajorityDecides()
         top_left = majorityDecides.mostCommon(top_left_array)
-        bottom_right = (top_left[0] + w, top_left[1] + h)
-        cv2.rectangle(img, top_left, bottom_right, 255, 2)
-
-        pv = PreView.PreView()
-        pv.showPreView(img, window)
-
-        return img
+        return top_left
 
     pass

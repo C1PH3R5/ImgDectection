@@ -1,6 +1,7 @@
 from tkinter import *
 from PIL import ImageTk, Image
 import ObjectDectection
+import Fishing
 
 # Here, we are creating our class, Window, and inheriting from the Frame
 # class. Frame is a class from the tkinter module. (see Lib/tkinter/__init__)
@@ -28,12 +29,14 @@ class Window(Frame):
         # creating a button instance
         startButton = Button(self, text="ScreenCapture", command=self.startObjectDectection)
         testButton = Button(self, text="Test", command=self.testObjectDectection)
+        fishingButton = Button(self, text="Start Fishing", command=self.fishing)
         quitButton = Button(self, text="Exit", command=self.client_exit)
 
         # placing the button on my window
         startButton.place(x=0, y=0)
         testButton.place(x=100, y=0)
-        quitButton.place(x=145, y=0)
+        fishingButton.place(x=145, y=0)
+        quitButton.place(x=245, y=0)
 
     def client_exit(self):
         exit()
@@ -47,6 +50,11 @@ class Window(Frame):
         print("testObjectDectection enter")
         od = ObjectDectection.OpjectDectection()
         od.runWhitTestScreens(self.master)
+
+    def fishing(self):
+        print("fishing enter")
+        fis = Fishing.Fishing()
+        fis.startFishing()
 
 # root window created. Here, that would be the only window, but
 # you can later have windows within windows.
