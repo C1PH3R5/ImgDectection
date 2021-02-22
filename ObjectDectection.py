@@ -1,9 +1,11 @@
 import cv2
 import glob
+
+import PreView
 import ScreenCapture
 import PreLoadTemplates
 import MajorityDecides
-import PreView
+import time
 
 import numpy as np
 
@@ -13,6 +15,7 @@ class OpjectDectection(object):
         self.preLoadTemplates.loadTempates()
         self.templates = self.preLoadTemplates.getTemplates()
         self.methods = ['cv2.TM_CCOEFF_NORMED', 'cv2.TM_CCORR_NORMED', 'cv2.TM_SQDIFF_NORMED']
+        self.loopTime = 0
         pass
 
     def runWhitScreenCapture(self, window):
@@ -22,9 +25,19 @@ class OpjectDectection(object):
         img = cv2.cvtColor(img_rgb, cv2.COLOR_BGR2GRAY)
         img = self.testFindObejct(img, window)
 
+    def runWhitScreenCaptureLoop(self, window):
+        print("runWhitScreenCapture enter")
+        idx = 0
+        while (idx < 100):
+            img = ScreenCapture.ScreenCapture().screenshotWholeScreen()
+            img_rgb = np.array(img)
+            img = cv2.cvtColor(img_rgb, cv2.COLOR_BGR2GRAY)
+            img = self.testFindObejct(img, window)
+            idx = idx + 1
+
     def runWhitTestScreens(self, window):
         for file in glob.glob("./data/NewBobbels/*.jpg"):
-            print(file)
+#            print(file)
             img = cv2.imread(file, 0)
             img = self.testFindObejct(img, window)
 
@@ -62,6 +75,9 @@ class OpjectDectection(object):
 
         majorityDecides = MajorityDecides.MajorityDecides()
         top_left = majorityDecides.mostCommon(top_left_array)
+        print('FPS {}'.format(1 / (time.time() - self.loopTime)))
+        self.loopTime = time.time()
+
         return top_left
 
     pass

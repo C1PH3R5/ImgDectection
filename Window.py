@@ -28,15 +28,17 @@ class Window(Frame):
 
         # creating a button instance
         startButton = Button(self, text="ScreenCapture", command=self.startObjectDectection)
+        captureLoopButton = Button(self, text="ScreenCapture loop", command=self.capturLoopObjectDectection)
         testButton = Button(self, text="Test", command=self.testObjectDectection)
         fishingButton = Button(self, text="Start Fishing", command=self.fishing)
         quitButton = Button(self, text="Exit", command=self.client_exit)
 
         # placing the button on my window
         startButton.place(x=0, y=0)
-        testButton.place(x=100, y=0)
-        fishingButton.place(x=145, y=0)
-        quitButton.place(x=245, y=0)
+        testButton.place(x=120, y=0)
+        fishingButton.place(x=165, y=0)
+        quitButton.place(x=265, y=0)
+        captureLoopButton.place(x=300, y=0)
 
     def client_exit(self):
         exit()
@@ -45,6 +47,12 @@ class Window(Frame):
         print("startObjectDectection enter")
         od = ObjectDectection.OpjectDectection()
         od.runWhitScreenCapture(self.master)
+
+    def capturLoopObjectDectection(self):
+        print("captureLoopObjectDectection enter")
+        od = ObjectDectection.OpjectDectection()
+        od.runWhitScreenCaptureLoop(self.master)
+
 
     def testObjectDectection(self):
         print("testObjectDectection enter")

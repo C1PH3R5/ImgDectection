@@ -13,7 +13,7 @@ class ScreenCapture:
         self.loopTime = 0
 
     def screenshotWholeScreen(self):
-        screenshot = pyautogui.screenshot()
+        screenshot = pyautogui.screenshot(region=(500, 250, 700, 500))
         screenshot = np.array(screenshot)
         screenshot = screenshot[:, :, ::-1].copy()
 
