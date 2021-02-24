@@ -17,7 +17,7 @@ class Fishing:
             self.pushFishButton()
             time.sleep(2)
             img = self.getImage()
-            top_left = od.FindObejct(img)
+            top_left = od.findObejctExecuor(img)
             print("top_left = " + str(top_left))
             self.positionCursor(top_left)
             self.waitForBite()
@@ -56,7 +56,7 @@ class Fishing:
 
     def positionCursor(self, top_left):
         print("positionCursor enter :" + str(top_left))
-        pyautogui.moveTo(top_left[0] + 20 + 500, top_left[1] + 20+ 250, 0.1)
+        pyautogui.moveTo(top_left[0] + 50 + 500, top_left[1] + 50 + 250, 1.0)
         x, y = pyautogui.position()
         pixelColor = pyautogui.screenshot().getpixel((x, y))
         ss = 'X: ' + str(x).rjust(4) + ' Y: ' + str(y).rjust(4)
