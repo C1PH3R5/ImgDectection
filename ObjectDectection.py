@@ -27,7 +27,7 @@ class OpjectDectection(object):
 
     def runWhitScreenCapture(self, window):
         print("runWhitScreenCapture enter")
-        img = ScreenCapture.ScreenCapture().screenshotWholeScreen()
+        img = ScreenCapture.ScreenCapture().getScreenshotWholeScreen(500, 250, 700, 500)
         img_rgb = np.array(img)
         img = cv2.cvtColor(img_rgb, cv2.COLOR_BGR2GRAY)
         img = self.testFindObejct(img, window)
@@ -36,7 +36,7 @@ class OpjectDectection(object):
         print("runWhitScreenCapture enter")
         idx = 0
         while (idx < 100):
-            img = ScreenCapture.ScreenCapture().screenshotWholeScreen()
+            img = ScreenCapture.ScreenCapture().getScreenshotWholeScreen(500, 250, 700, 500)
             img_rgb = np.array(img)
             img = cv2.cvtColor(img_rgb, cv2.COLOR_BGR2GRAY)
             img = self.testFindObejct(img, window)
