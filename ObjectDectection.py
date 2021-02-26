@@ -3,15 +3,11 @@ from itertools import repeat
 import cv2
 import glob
 
-import PreView
 import ScreenCapture
 import PreLoadTemplates
 import MajorityDecides
 import time
 from concurrent.futures import ThreadPoolExecutor
-# from concurrent.futures import as_completed
-
-
 
 import numpy as np
 
@@ -57,8 +53,7 @@ class OpjectDectection(object):
         bottom_right = (top_left[0] + w, top_left[1] + h)
         cv2.rectangle(img, top_left, bottom_right, 255, 2)
 
-        pv = PreView.PreView()
-        pv.showPreView(img, window)
+        window.showImg(img)
 
         return img
 
