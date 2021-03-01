@@ -10,19 +10,28 @@ import pyautogui
 class Fishing:
 
     def __init__(self):
-       pass
+        self.width = None
+        self.height = None
+        self.top_rigth = None
+        pass
 
-    def startFishing(self):
+    def startFishing(self, window):
  #       print("Fishing start enter")
         time.sleep(10)
         od = ObjectDectection.OpjectDectection()
+
+
+        self.top_rigth = window.getScreenShootTopLeft()
+        self.width = window.getScreenShootWidth()
+        self.height = window.getScreenShootHeight()
+
         while (True):
 #            print("1 : " + datetime.datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S.%f')[:-2])
             self.pushFishButton()
 #            print("2 : " + datetime.datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S.%f')[:-2])
             time.sleep(self.getRandomBreak())
 #            print("3 : " + datetime.datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S.%f')[:-2])
-            img = self.getImage(400, 250, 700, 500)
+            img = self.getImage(self.top_rigth[0], self.top_rigth[1], self.width, self.height)
 #            print("4 : " + datetime.datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S.%f')[:-2])
             top_left = od.findObejctExecuor(img)
 #            print("5 : " + datetime.datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S.%f')[:-2])
@@ -89,11 +98,13 @@ class Fishing:
         pass
 
     def getRealX(self, x):
-        return x + 400
+#        print("getRealX : " + str(x) + " + " + str(self.top_rigth[0]))
+        return x + self.top_rigth[0]
         pass
 
     def getRealY(self, y):
-        return y + 250
+#        print("getRealY : " + str(y) + " + " + str(self.top_rigth[1]))
+        return y + self.top_rigth[1]
         pass
 
     def getRandomBreak(self):

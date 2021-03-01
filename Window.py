@@ -18,13 +18,16 @@ class Window(Frame):
         Frame.__init__(self, master)
 
         # reference to the master widget, which is the tk window
+        self.root = None
         self.master = master
         self.frame = None
         self.frameImg = None
         self.canvas = None
         self.width = None
         self.height = None
-
+        self.screenShootTopLeft = None
+        self.screenShootWidth = None
+        self.screenShootHeight = None
         # with that, we want to then run init_window, which doesn't yet exist
         self.init_window()
 
@@ -33,7 +36,7 @@ class Window(Frame):
         # changing the title of our master widget
         self.master.title("Do it for me")
         Grid.rowconfigure(self.master, index=0, weight=1)
-        Grid.rowconfigure(self.master, index=1, weight=1)
+        Grid.rowconfigure(self.master, index=1, weight=30)
         Grid.columnconfigure(self.master, index=0, weight=1)
 
 
@@ -63,14 +66,14 @@ class Window(Frame):
         fishingButton = Button(self.frame, text="Start Fishing", command=self.fishing)
         quitButton = Button(self.frame, text="Exit", command=self.client_exit)
 
-        self.frame.grid(column=0, row=0, sticky="nsew")
+        self.frame.grid(column=0, row=0, sticky="ew")
         self.frameImg.grid(column=0, row=1, sticky="nsew")
 
-        startButton.grid(column=0, row=0, sticky="nsew")
-        testButton.grid(column=1, row=0, sticky="nsew")
-        fishingButton.grid(column=2, row=0, sticky="nsew")
-        captureLoopButton.grid(column=3, row=0, sticky="nsew")
-        quitButton.grid(column=4, row=0, sticky="nsew")
+        startButton.grid(column=0, row=0, sticky="ew")
+        testButton.grid(column=1, row=0, sticky="ew")
+        fishingButton.grid(column=2, row=0, sticky="ew")
+        captureLoopButton.grid(column=3, row=0, sticky="ew")
+        quitButton.grid(column=4, row=0, sticky="ew")
 
         myFont = Font(size=12)
         startButton["font"] = myFont
@@ -78,6 +81,19 @@ class Window(Frame):
         fishingButton["font"] = myFont
         captureLoopButton["font"] = myFont
         quitButton["font"] = myFont
+
+        midelOfScreen = self.findMidelOfScreen()
+        print(str(midelOfScreen[0]))
+        print(str(midelOfScreen[1]))
+
+        self.screenShootWidth = self.findScreenShootWidth()
+        print(str(self.screenShootWidth))
+
+        self.screenShootHeight = self.findScreenShootHeight()
+        print(str(self.screenShootHeight))
+
+        self.screenShootTopLeft = self.findScreenShootTopLeft(midelOfScreen, self.screenShootWidth, self.screenShootHeight)
+        print(str(self.screenShootTopLeft))
 
     def showImg(self, img):
         pil_image = Image.fromarray(img)
@@ -88,6 +104,15 @@ class Window(Frame):
         self.canvas.image = imgTK
         self.canvas.update()
         pass
+
+    def getScreenShootTopLeft(self):
+        return self.screenShootTopLeft
+
+    def getScreenShootWidth(self):
+        return self.screenShootWidth
+
+    def getScreenShootHeight(self):
+        return self.screenShootHeight
 
     def resize(self, event):
         self.width = event.width
@@ -115,7 +140,27 @@ class Window(Frame):
     def fishing(self):
         print("fishing enter")
         fis = Fishing.Fishing()
-        fis.startFishing()
+        fis.startFishing(self)
+
+    def findMidelOfScreen(self):
+        w = int(self.winfo_screenwidth() / 2)
+        h = int(self.winfo_screenheight() / 2)
+        print("winfo_width : " + str(w))
+        print("winfo_height : " + str(h))
+        return [w, h]
+
+    def findScreenShootWidth(self):
+        w = self.winfo_screenwidth()
+        return int(w * 33.3 / 100)
+
+    def findScreenShootHeight(self):
+        h = self.winfo_screenheight()
+        return int(h * 60 / 100)
+
+    def findScreenShootTopLeft(self, midelOfScreen, screenShootWidth, screenShootHeight):
+        x = int(midelOfScreen[0] - (screenShootWidth / 2))
+        y = int(midelOfScreen[1] - (screenShootHeight / 2))
+        return [x, y]
 
 # root window created. Here, that would be the only window, but
 # you can later have windows within windows.
